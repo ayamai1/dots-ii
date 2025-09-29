@@ -1,0 +1,119 @@
+pkgname=illogical-impulse-basics
+pkgver=1.0
+pkgrel=1
+pkgdesc='illogical impulse basic dependencies'
+arch=(any)
+license=(None)
+depends=(
+	# Audio
+	cava
+	pavucontrol-qt
+	wireplumber-openrc
+	libdbusmenu-gtk3
+	playerctl
+
+	# Backlight
+	brightnessctl
+
+	# Basic
+	axel
+	bc
+	coreutils
+	cliphist
+	cmake
+	curl
+	rsync
+	wget
+	ripgrep
+	jq
+	xdg-user-dirs
+	imagemagick
+
+	# Fonts and Theming
+	plasma-workspace
+	kvantum
+	adw-gtk-theme-git
+	breeze
+	breeze-plus
+	darkly-bin
+	fontconfig
+	kde-material-you-colors
+	matugen-bin
+	otf-space-grotesk
+	ttf-gabarito-git
+	ttf-jetbrains-mono-nerd
+	ttf-material-symbols-variable-git
+	ttf-readex-pro
+	ttf-rubik-vf
+	ttf-twemoji
+
+	# Hyprland
+	hypridle
+	hyprcursor
+	hyprland
+	hyprland-qtutils
+	hyprland-qt-support
+	hyprlang
+	hyprlock
+	hyprpicker
+	hyprsunset
+	hyprutils
+	hyprwayland-scanner
+	wl-clipboard
+
+	# KDE
+	polkit-kde-agent
+
+	# XDG Desktop Portals
+	xdg-desktop-portal
+	xdg-desktop-portal-kde
+	xdg-desktop-portal-gtk
+	xdg-desktop-portal-hyprland
+
+	# Python
+	clang
+	uv
+	gtk4
+	libadwaita
+	libsoup3
+	libportal-gtk4
+	gobject-introspection
+	sassc
+	python-opencv
+
+	# Screenshot and Recording
+	hyprshot
+	slurp
+	swappy
+	tesseract
+	tesseract-data-eng
+	wf-recorder
+
+	# GTK/Qt
+	kdialog
+	qt6-5compat
+	qt6-avif-image-plugin
+	qt6-base
+	qt6-declarative
+	qt6-imageformats
+	qt6-multimedia
+	qt6-positioning
+	qt6-quicktimeline
+	qt6-sensors
+	qt6-svg
+	qt6-tools
+	qt6-translations
+	qt6-virtualkeyboard
+	qt6-wayland
+	syntax-highlighting
+	upower
+	wtype
+	fcitx5
+
+	# Widget
+	fuzzel
+	hyprpicker
+	quickshell
+	translate-shell
+	wlogout
+)

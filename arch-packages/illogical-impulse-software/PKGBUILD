@@ -1,0 +1,16 @@
+pkgname=illogical-impulse-software
+pkgver=1.0
+pkgrel=1
+pkgdesc='illogical impulse software dependencies'
+arch=(any)
+license=(None)
+depends=(
+	# Fonts and Theming
+	eza
+	fish
+	kitty
+	starship
+
+	# KDE
+	dolphin
+)
