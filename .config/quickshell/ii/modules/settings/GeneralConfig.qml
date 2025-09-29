@@ -100,7 +100,7 @@ ContentPage {
             }
         }
     }
-    
+
     ContentSection {
         icon: "language"
         title: Translation.tr("Language")
@@ -125,8 +125,7 @@ ContentPage {
                             displayName: lang.replace('_', '-'),
                             value: lang
                         };
-                    })
-                ]
+                    })]
             }
         }
     }
@@ -208,16 +207,7 @@ ContentPage {
 
             ConfigSelectionArray {
                 currentValue: Config.options.time.format
-                onSelected: newValue => {
-                    if (newValue === "hh:mm") {
-                        Quickshell.execDetached(["bash", "-c", `sed -i 's/\\TIME12\\b/TIME/' '${FileUtils.trimFileProtocol(Directories.config)}/hypr/hyprlock.conf'`]);
-                    } else {
-                        Quickshell.execDetached(["bash", "-c", `sed -i 's/\\TIME\\b/TIME12/' '${FileUtils.trimFileProtocol(Directories.config)}/hypr/hyprlock.conf'`]);
-                    }
-
-                    Config.options.time.format = newValue;
-                    
-                }
+                onSelected: newValue => Config.options.time.format = newValue
                 options: [
                     {
                         displayName: Translation.tr("24h"),

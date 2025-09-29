@@ -54,7 +54,6 @@ depends=(
 	hyprland-qtutils
 	hyprland-qt-support
 	hyprlang
-	hyprlock
 	hyprpicker
 	hyprsunset
 	hyprutils
