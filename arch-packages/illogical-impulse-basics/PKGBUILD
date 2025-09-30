@@ -1,5 +1,5 @@
 pkgname=illogical-impulse-basics
-pkgver=1.0
+pkgver=1.3
 pkgrel=1
 pkgdesc='illogical impulse basic dependencies'
 arch=(any)
