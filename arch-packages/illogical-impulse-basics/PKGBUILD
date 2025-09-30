@@ -112,7 +112,7 @@ depends=(
 	# Widget
 	fuzzel
 	hyprpicker
-	quickshell
+	quickshell-git
 	translate-shell
 	wlogout
 )
