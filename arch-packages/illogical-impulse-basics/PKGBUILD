@@ -16,14 +16,10 @@ depends=(
 	brightnessctl
 
 	# Basic
-	axel
 	bc
 	coreutils
 	cliphist
-	cmake
 	curl
-	rsync
-	wget
 	ripgrep
 	jq
 	xdg-user-dirs
