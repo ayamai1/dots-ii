@@ -7,7 +7,7 @@ import qs.modules.common.widgets
 
 ContentPage {
     forceWidth: true
-    
+
     ContentSection {
         icon: "spoke"
         title: Translation.tr("Positioning")
@@ -73,7 +73,7 @@ ContentPage {
         }
 
         ConfigRow {
-            
+
             ContentSubsection {
                 title: Translation.tr("Corner style")
                 Layout.fillWidth: true
@@ -260,26 +260,13 @@ ContentPage {
                 Config.options.bar.tray.invertPinnedItems = checked;
             }
         }
-        
+
         ConfigSwitch {
             buttonIcon: "colors"
             text: Translation.tr('Tint icons')
             checked: Config.options.bar.tray.monochromeIcons
             onCheckedChanged: {
                 Config.options.bar.tray.monochromeIcons = checked;
-            }
-        }
-    }
-
-    ContentSection {
-        icon: "cloud"
-        title: Translation.tr("Weather")
-        ConfigSwitch {
-            buttonIcon: "check"
-            text: Translation.tr("Enable")
-            checked: Config.options.bar.weather.enable
-            onCheckedChanged: {
-                Config.options.bar.weather.enable = checked;
             }
         }
     }
