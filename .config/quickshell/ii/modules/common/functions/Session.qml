@@ -17,7 +17,7 @@ Singleton {
     }
 
     function suspend() {
-        Quickshell.execDetached(["bash", "-c", "systemctl suspend || loginctl suspend"]);
+        Quickshell.execDetached(["bash", "-c", "loginctl suspend"]);
     }
 
     function logout() {
@@ -30,21 +30,21 @@ Singleton {
     }
 
     function hibernate() {
-        Quickshell.execDetached(["bash", "-c", `systemctl hibernate || loginctl hibernate`]);
+        Quickshell.execDetached(["bash", "-c", `loginctl hibernate`]);
     }
 
     function poweroff() {
         closeAllWindows();
-        Quickshell.execDetached(["bash", "-c", `systemctl poweroff || loginctl poweroff`]);
+        Quickshell.execDetached(["bash", "-c", `loginctl poweroff`]);
     }
 
     function reboot() {
         closeAllWindows();
-        Quickshell.execDetached(["bash", "-c", `reboot || loginctl reboot`]);
+        Quickshell.execDetached(["bash", "-c", `loginctl reboot`]);
     }
 
     function rebootToFirmware() {
         closeAllWindows();
-        Quickshell.execDetached(["bash", "-c", `systemctl reboot --firmware-setup || loginctl reboot --firmware-setup`]);
+        Quickshell.execDetached(["bash", "-c", `loginctl reboot --firmware-setup`]);
     }
 }

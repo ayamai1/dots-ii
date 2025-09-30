@@ -28,29 +28,18 @@ Singleton {
     property real timeToFull: UPower.displayDevice.timeToFull
 
     onIsLowAndNotChargingChanged: {
-        if (available && isLowAndNotCharging) Quickshell.execDetached([
-            "notify-send", 
-            Translation.tr("Low battery"), 
-            Translation.tr("Consider plugging in your device"), 
-            "-u", "critical",
-            "-a", "Shell"
-        ])
+        if (available && isLowAndNotCharging)
+            Quickshell.execDetached(["notify-send", Translation.tr("Low battery"), Translation.tr("Consider plugging in your device"), "-u", "critical", "-a", "Shell"]);
     }
 
     onIsCriticalAndNotChargingChanged: {
-        if (available && isCriticalAndNotCharging) Quickshell.execDetached([
-            "notify-send", 
-            Translation.tr("Critically low battery"), 
-            Translation.tr("Please charge!\nAutomatic suspend triggers at %1").arg(Config.options.battery.suspend), 
-            "-u", "critical",
-            "-a", "Shell"
-        ]);
-            
+        if (available && isCriticalAndNotCharging)
+            Quickshell.execDetached(["notify-send", Translation.tr("Critically low battery"), Translation.tr("Please charge!\nAutomatic suspend triggers at %1").arg(Config.options.battery.suspend), "-u", "critical", "-a", "Shell"]);
     }
 
     onIsSuspendingAndNotChargingChanged: {
         if (available && isSuspendingAndNotCharging) {
-            Quickshell.execDetached(["bash", "-c", `systemctl suspend || loginctl suspend`]);
+            Quickshell.execDetached(["bash", "-c", `loginctl suspend`]);
         }
     }
 }
