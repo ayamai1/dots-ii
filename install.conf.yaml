@@ -9,12 +9,15 @@
       stdout: true
       stderr: true
 
-- clean: ['~']
-
 - create:
     - ~/.config/
     - ~/.config/fcitx5/conf/
     - ~/.local/share/icons/
+
+- clean:
+    - ~/.config/
+    - ~/.config/fcitx5/conf/
+    - ~/.local/share/icons/'
 
 - link:
     # dotfiles to be linked (in alphabetical order)
