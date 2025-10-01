@@ -71,3 +71,23 @@
 
         - description: Setting up D-Bus
           command: rc-update -U add dbus
+
+        - description: Setting up Python virtual environment
+          command: >
+                set -e
+
+                XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+
+                ILLOGICAL_IMPULSE_VIRTUAL_ENV=$XDG_STATE_HOME/quickshell/.venv
+
+                mkdir -p $(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV)
+
+                UV_NO_MODIFY_PATH=1
+
+                uv venv -c --prompt .venv $(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV) -p 3.12 
+
+                source $(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV)/bin/activate
+
+                uv pip install -r scriptdata/requirements.txt
+
+                deactivate
