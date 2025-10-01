@@ -6,7 +6,6 @@
 // Adjust this to make the shell smaller or larger
 //@ pragma Env QT_SCALE_FACTOR=1
 
-
 import "./modules/common/"
 import "./modules/background/"
 import "./modules/bar/"
@@ -55,31 +54,84 @@ ShellRoot {
 
     // Force initialization of some singletons
     Component.onCompleted: {
-        MaterialThemeLoader.reapplyTheme()
-        Hyprsunset.load()
-        FirstRunExperience.load()
-        ConflictKiller.load()
-        Cliphist.refresh()
-        Wallpapers.load()
+        MaterialThemeLoader.reapplyTheme();
+        Hyprsunset.load();
+        FirstRunExperience.load();
+        ConflictKiller.load();
+        Clipboard.refresh();
+        Wallpapers.load();
     }
 
-    LazyLoader { active: enableBar && Config.ready && !Config.options.bar.vertical; component: Bar {} }
-    LazyLoader { active: enableBackground; component: Background {} }
-    LazyLoader { active: enableCheatsheet; component: Cheatsheet {} }
-    LazyLoader { active: enableCrosshair; component: Crosshair {} }
-    LazyLoader { active: enableDock && Config.options.dock.enable; component: Dock {} }
-    LazyLoader { active: enableLock; component: Lock {} }
-    LazyLoader { active: enableMediaControls; component: MediaControls {} }
-    LazyLoader { active: enableNotificationPopup; component: NotificationPopup {} }
-    LazyLoader { active: enableOnScreenDisplay; component: OnScreenDisplay {} }
-    LazyLoader { active: enableOnScreenKeyboard; component: OnScreenKeyboard {} }
-    LazyLoader { active: enableOverview; component: Overview {} }
-    LazyLoader { active: enableReloadPopup; component: ReloadPopup {} }
-    LazyLoader { active: enableScreenCorners; component: ScreenCorners {} }
-    LazyLoader { active: enableSessionScreen; component: SessionScreen {} }
-    LazyLoader { active: enableSidebarLeft; component: SidebarLeft {} }
-    LazyLoader { active: enableSidebarRight; component: SidebarRight {} }
-    LazyLoader { active: enableVerticalBar && Config.ready && Config.options.bar.vertical; component: VerticalBar {} }
-    LazyLoader { active: enableWallpaperSelector; component: WallpaperSelector {} }
+    LazyLoader {
+        active: enableBar && Config.ready && !Config.options.bar.vertical
+        component: Bar {}
+    }
+    LazyLoader {
+        active: enableBackground
+        component: Background {}
+    }
+    LazyLoader {
+        active: enableCheatsheet
+        component: Cheatsheet {}
+    }
+    LazyLoader {
+        active: enableCrosshair
+        component: Crosshair {}
+    }
+    LazyLoader {
+        active: enableDock && Config.options.dock.enable
+        component: Dock {}
+    }
+    LazyLoader {
+        active: enableLock
+        component: Lock {}
+    }
+    LazyLoader {
+        active: enableMediaControls
+        component: MediaControls {}
+    }
+    LazyLoader {
+        active: enableNotificationPopup
+        component: NotificationPopup {}
+    }
+    LazyLoader {
+        active: enableOnScreenDisplay
+        component: OnScreenDisplay {}
+    }
+    LazyLoader {
+        active: enableOnScreenKeyboard
+        component: OnScreenKeyboard {}
+    }
+    LazyLoader {
+        active: enableOverview
+        component: Overview {}
+    }
+    LazyLoader {
+        active: enableReloadPopup
+        component: ReloadPopup {}
+    }
+    LazyLoader {
+        active: enableScreenCorners
+        component: ScreenCorners {}
+    }
+    LazyLoader {
+        active: enableSessionScreen
+        component: SessionScreen {}
+    }
+    LazyLoader {
+        active: enableSidebarLeft
+        component: SidebarLeft {}
+    }
+    LazyLoader {
+        active: enableSidebarRight
+        component: SidebarRight {}
+    }
+    LazyLoader {
+        active: enableVerticalBar && Config.ready && Config.options.bar.vertical
+        component: VerticalBar {}
+    }
+    LazyLoader {
+        active: enableWallpaperSelector
+        component: WallpaperSelector {}
+    }
 }
-

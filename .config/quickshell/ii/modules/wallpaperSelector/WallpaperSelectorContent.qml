@@ -17,22 +17,22 @@ MouseArea {
     property bool useDarkMode: Appearance.m3colors.darkmode
 
     function updateThumbnails() {
-        const totalImageMargin = (Appearance.sizes.wallpaperSelectorItemMargins + Appearance.sizes.wallpaperSelectorItemPadding) * 2
-        const thumbnailSizeName = Images.thumbnailSizeNameForDimensions(grid.cellWidth - totalImageMargin, grid.cellHeight - totalImageMargin)
-        Wallpapers.generateThumbnail(thumbnailSizeName)
+        const totalImageMargin = (Appearance.sizes.wallpaperSelectorItemMargins + Appearance.sizes.wallpaperSelectorItemPadding) * 2;
+        const thumbnailSizeName = Images.thumbnailSizeNameForDimensions(grid.cellWidth - totalImageMargin, grid.cellHeight - totalImageMargin);
+        Wallpapers.generateThumbnail(thumbnailSizeName);
     }
 
     Connections {
         target: Wallpapers
         function onDirectoryChanged() {
-            root.updateThumbnails()
+            root.updateThumbnails();
         }
     }
 
     function handleFilePasting(event) {
-        const currentClipboardEntry = Cliphist.entries[0]
+        const currentClipboardEntry = Clipboard.entries[0];
         if (/^\d+\tfile:\/\/\S+/.test(currentClipboardEntry)) {
-            const url = StringUtils.cleanCliphistEntry(currentClipboardEntry);
+            const url = StringUtils.cleanClipboardEntry(currentClipboardEntry);
             Wallpapers.setDirectory(FileUtils.trimFileProtocol(decodeURIComponent(url)));
             event.accepted = true;
         } else {
@@ -60,7 +60,8 @@ MouseArea {
         if (event.key === Qt.Key_Escape) {
             GlobalStates.wallpaperSelectorOpen = false;
             event.accepted = true;
-        } else if ((event.modifiers & Qt.ControlModifier) && event.key === Qt.Key_V) { // Intercept Ctrl+V to handle "paste to go to" in pickers
+        } else if ((event.modifiers & Qt.ControlModifier) && event.key === Qt.Key_V) {
+            // Intercept Ctrl+V to handle "paste to go to" in pickers
             root.handleFilePasting(event);
         } else if (event.modifiers & Qt.AltModifier && event.key === Qt.Key_Up) {
             Wallpapers.navigateUp();
@@ -164,15 +165,48 @@ MouseArea {
                         implicitWidth: 140
                         clip: true
                         model: [
-                            { icon: "home", name: "Home", path: Directories.home }, 
-                            { icon: "docs", name: "Documents", path: Directories.documents }, 
-                            { icon: "download", name: "Downloads", path: Directories.downloads }, 
-                            { icon: "image", name: "Pictures", path: Directories.pictures }, 
-                            { icon: "movie", name: "Videos", path: Directories.videos }, 
-                            { icon: "", name: "---", path: "INTENTIONALLY_INVALID_DIR" }, 
-                            { icon: "wallpaper", name: "Wallpapers", path: `${Directories.pictures}/Wallpapers` }, 
-                            ...(Config.options.policies.weeb === 1 ? [{ icon: "favorite", name: "Homework", path: `${Directories.pictures}/homework` }] : []),
-                        ]
+                            {
+                                icon: "home",
+                                name: "Home",
+                                path: Directories.home
+                            },
+                            {
+                                icon: "docs",
+                                name: "Documents",
+                                path: Directories.documents
+                            },
+                            {
+                                icon: "download",
+                                name: "Downloads",
+                                path: Directories.downloads
+                            },
+                            {
+                                icon: "image",
+                                name: "Pictures",
+                                path: Directories.pictures
+                            },
+                            {
+                                icon: "movie",
+                                name: "Videos",
+                                path: Directories.videos
+                            },
+                            {
+                                icon: "",
+                                name: "---",
+                                path: "INTENTIONALLY_INVALID_DIR"
+                            },
+                            {
+                                icon: "wallpaper",
+                                name: "Wallpapers",
+                                path: `${Directories.pictures}/Wallpapers`
+                            },
+                            ...(Config.options.policies.weeb === 1 ? [
+                                    {
+                                        icon: "favorite",
+                                        name: "Homework",
+                                        path: `${Directories.pictures}/homework`
+                                    }
+                                ] : []),]
                         delegate: RippleButton {
                             id: quickDirButton
                             required property var modelData
@@ -265,7 +299,7 @@ MouseArea {
                         ScrollBar.vertical: StyledScrollBar {}
 
                         Component.onCompleted: {
-                            root.updateThumbnails()
+                            root.updateThumbnails();
                         }
 
                         function moveSelection(delta) {
@@ -274,7 +308,7 @@ MouseArea {
                         }
 
                         function activateCurrent() {
-                            const filePath = grid.model.get(currentIndex, "filePath")
+                            const filePath = grid.model.get(currentIndex, "filePath");
                             root.selectWallpaperPath(filePath);
                         }
 
@@ -292,7 +326,7 @@ MouseArea {
                             onEntered: {
                                 grid.currentIndex = index;
                             }
-                            
+
                             onActivated: {
                                 root.selectWallpaperPath(fileModelData.filePath);
                             }
@@ -325,7 +359,7 @@ MouseArea {
                             altAction: () => {
                                 Wallpapers.openFallbackPicker(root.useDarkMode);
                                 GlobalStates.wallpaperSelectorOpen = false;
-                                Config.options.wallpaperSelector.useSystemFileDialog = true
+                                Config.options.wallpaperSelector.useSystemFileDialog = true;
                             }
                             contentItem: MaterialSymbol {
                                 anchors.centerIn: parent
@@ -382,11 +416,11 @@ MouseArea {
                             }
 
                             Keys.onPressed: event => {
-                                if ((event.modifiers & Qt.ControlModifier) && event.key === Qt.Key_V) { // Intercept Ctrl+V to handle "paste to go to" in pickers
+                                if ((event.modifiers & Qt.ControlModifier) && event.key === Qt.Key_V) {
+                                    // Intercept Ctrl+V to handle "paste to go to" in pickers
                                     root.handleFilePasting(event);
                                     return;
-                                }
-                                else if (text.length !== 0) {
+                                } else if (text.length !== 0) {
                                     // No filtering, just navigate grid
                                     if (event.key === Qt.Key_Down) {
                                         grid.moveSelection(grid.columns);

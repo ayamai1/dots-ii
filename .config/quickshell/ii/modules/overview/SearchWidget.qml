@@ -22,7 +22,7 @@ Item { // Wrapper
     property string mathResult: ""
     property bool clipboardWorkSafetyActive: {
         const enabled = Config.options.workSafety.enable.clipboard;
-        const sensitiveNetwork = (StringUtils.stringListContainsSubstring(Network.networkName.toLowerCase(), Config.options.workSafety.triggerCondition.networkNameKeywords))
+        const sensitiveNetwork = (StringUtils.stringListContainsSubstring(Network.networkName.toLowerCase(), Config.options.workSafety.triggerCondition.networkNameKeywords));
         return enabled && sensitiveNetwork;
     }
 
@@ -54,19 +54,15 @@ Item { // Wrapper
         {
             action: "superpaste",
             execute: args => {
-                if (!/^(\d+)/.test(args.trim())) { // Invalid if doesn't start with numbers
-                    Quickshell.execDetached([
-                        "notify-send", 
-                        Translation.tr("Superpaste"), 
-                        Translation.tr("Usage: <tt>%1superpaste NUM_OF_ENTRIES[i]</tt>\nSupply <tt>i</tt> when you want images\nExamples:\n<tt>%1superpaste 4i</tt> for the last 4 images\n<tt>%1superpaste 7</tt> for the last 7 entries").arg(Config.options.search.prefix.action),
-                        "-a", "Shell"
-                    ]);
+                if (!/^(\d+)/.test(args.trim())) {
+                    // Invalid if doesn't start with numbers
+                    Quickshell.execDetached(["notify-send", Translation.tr("Superpaste"), Translation.tr("Usage: <tt>%1superpaste NUM_OF_ENTRIES[i]</tt>\nSupply <tt>i</tt> when you want images\nExamples:\n<tt>%1superpaste 4i</tt> for the last 4 images\n<tt>%1superpaste 7</tt> for the last 7 entries").arg(Config.options.search.prefix.action), "-a", "Shell"]);
                     return;
                 }
                 const syntaxMatch = /^(?:(\d+)(i)?)/.exec(args.trim());
                 const count = syntaxMatch[1] ? parseInt(syntaxMatch[1]) : 1;
                 const isImage = !!syntaxMatch[2];
-                Cliphist.superpaste(count, isImage);
+                Clipboard.superpaste(count, isImage);
             }
         },
         {
@@ -103,7 +99,8 @@ Item { // Wrapper
     }
 
     function containsUnsafeLink(entry) {
-        if (entry == undefined) return false;
+        if (entry == undefined)
+            return false;
         const unsafeKeywords = Config.options.workSafety.triggerCondition.linkKeywords;
         return StringUtils.stringListContainsSubstring(entry.toLowerCase(), unsafeKeywords);
     }
@@ -322,33 +319,33 @@ Item { // Wrapper
                         if (root.searchingText.startsWith(Config.options.search.prefix.clipboard)) {
                             // Clipboard
                             const searchString = root.searchingText.slice(Config.options.search.prefix.clipboard.length);
-                            return Cliphist.fuzzyQuery(searchString).map((entry, index, array) => {
-                                const mightBlurImage = Cliphist.entryIsImage(entry) && root.clipboardWorkSafetyActive;
+                            return Clipboard.fuzzyQuery(searchString).map((entry, index, array) => {
+                                const mightBlurImage = Clipboard.entryIsImage(entry) && root.clipboardWorkSafetyActive;
                                 let shouldBlurImage = mightBlurImage;
                                 if (mightBlurImage) {
                                     shouldBlurImage = shouldBlurImage && (containsUnsafeLink(array[index - 1]) || containsUnsafeLink(array[index + 1]));
                                 }
                                 return {
-                                    cliphistRawString: entry,
-                                    name: StringUtils.cleanCliphistEntry(entry),
+                                    clipboardRawString: entry,
+                                    name: StringUtils.cleanClipboardEntry(entry),
                                     clickActionName: "",
                                     type: `#${entry.match(/^\s*(\S+)/)?.[1] || ""}`,
                                     execute: () => {
-                                        Cliphist.copy(entry)
+                                        Clipboard.copy(entry);
                                     },
                                     actions: [
                                         {
                                             name: "Copy",
                                             materialIcon: "content_copy",
                                             execute: () => {
-                                                Cliphist.copy(entry);
+                                                Clipboard.copy(entry);
                                             }
                                         },
                                         {
                                             name: "Delete",
                                             materialIcon: "delete",
                                             execute: () => {
-                                                Cliphist.deleteEntry(entry);
+                                                Clipboard.deleteEntry(entry);
                                             }
                                         }
                                     ],
@@ -356,13 +353,12 @@ Item { // Wrapper
                                     blurImageText: Translation.tr("Work safety")
                                 };
                             }).filter(Boolean);
-                        }
-                        else if (root.searchingText.startsWith(Config.options.search.prefix.emojis)) {
+                        } else if (root.searchingText.startsWith(Config.options.search.prefix.emojis)) {
                             // Clipboard
                             const searchString = root.searchingText.slice(Config.options.search.prefix.emojis.length);
                             return Emojis.fuzzyQuery(searchString).map(entry => {
                                 return {
-                                    cliphistRawString: entry,
+                                    clipboardRawString: entry,
                                     bigText: entry.match(/^\s*(\S+)/)?.[1] || "",
                                     name: entry.replace(/^\s*\S+\s+/, ""),
                                     clickActionName: "",
@@ -416,7 +412,7 @@ Item { // Wrapper
                                 }
                                 Qt.openUrlExternally(url);
                             }
-                        }
+                        };
                         const launcherActionObjects = root.searchActions.map(action => {
                             const actionString = `${Config.options.search.prefix.action}${action.action}`;
                             if (actionString.startsWith(root.searchingText) || root.searchingText.startsWith(actionString)) {
@@ -459,9 +455,12 @@ Item { // Wrapper
 
                         /// Math result, command, web search ///
                         if (Config.options.search.prefix.showDefaultActionsWithoutPrefix) {
-                            if (!startsWithShellCommandPrefix) result.push(commandResultObject);
-                            if (!startsWithNumber && !startsWithMathPrefix) result.push(mathResultObject);
-                            if (!startsWithWebSearchPrefix) result.push(webSearchResultObject);
+                            if (!startsWithShellCommandPrefix)
+                                result.push(commandResultObject);
+                            if (!startsWithNumber && !startsWithMathPrefix)
+                                result.push(mathResultObject);
+                            if (!startsWithWebSearchPrefix)
+                                result.push(webSearchResultObject);
                         }
 
                         return result;
