@@ -1,0 +1,46 @@
+# Based on hyprsunset-git package from AUR (props to alba4k)
+
+_pkgname="hyprsunset"
+pkgname="illogical-impulse-$_pkgname"
+pkgver=0.3.2
+pkgrel=1
+pkgdesc="An application to enable a blue-light filter on Hyprland (tagged version for illogical impulse)"
+arch=('x86_64' 'aarch64')
+url="https://github.com/hyprwm/hyprsunset"
+license=('BSD-3-Clause')
+depends=(
+  hyprlang
+  hyprutils
+  wayland
+  wayland-protocols
+)
+makedepends=(
+  hyprland-protocols
+  hyprwayland-scanner
+  cmake
+  git
+  ninja
+)
+
+provides=("${_pkgname}=${pkgver%%.r*}")
+conflicts=("$_pkgname")
+source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('b28648387aa4c26a0aad81323331fb9d23923626f3bc3f3d33b1b120d32d3925')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S "${_pkgname}-${pkgver}"
+    -G Ninja
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 "${_pkgname}-${pkgver}/LICENSE" -t "${pkgdir}/usr/share/licenses/${_pkgname}/"
+}
