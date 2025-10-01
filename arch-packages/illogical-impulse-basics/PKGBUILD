@@ -60,6 +60,7 @@ depends=(
 	polkit-kde-agent
 
 	# XDG Desktop Portals
+	dbus-openrc
 	xdg-desktop-portal
 	xdg-desktop-portal-kde
 	xdg-desktop-portal-gtk

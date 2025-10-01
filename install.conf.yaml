@@ -67,3 +67,6 @@
             popd
 
             done
+
+      - description: Setting up D-Bus
+        command: rc-update -U add dbus
