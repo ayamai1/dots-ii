@@ -51,7 +51,7 @@ depends=(
 	hyprland-qt-support
 	hyprlang
 	hyprpicker
-	hyprsunset
+	illogical-impulse-hyprsunset
 	hyprutils
 	hyprwayland-scanner
 	wl-clipboard
