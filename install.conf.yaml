@@ -56,12 +56,17 @@
                 metapkgs=({hyprsunset,bibata-modern-classic-bin,microtex-git,basics,software})
 
                 for i in "${metapkgs[@]}"; do
+
                       pushd arch-packages/illogical-impulse-$i
 
                       source ./PKGBUILD
+
                       yay -S --needed --asdeps "${depends[@]}"
+
                       makepkg -Asi
+
                       popd
+
                 done
 
         - description: Setting up D-Bus
