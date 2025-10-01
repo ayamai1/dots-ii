@@ -1,93 +1,85 @@
 # commands (create, link, shell) are ran in order they are written in
 
 - defaults:
-        link:
-              relative: true
-              relink: true
-        shell:
-              stdin: true
-              stdout: true
-              stderr: true
+    link:
+      relative: true
+      relink: true
+    shell:
+      stdin: true
+      stdout: true
+      stderr: true
 
 - create:
-        - ~/.config/
-        - ~/.config/fcitx5/conf/
-        - ~/.local/share/icons/
+    - ~/.config/
+    - ~/.config/fcitx5/conf/
+    - ~/.local/share/icons/
 
 - clean:
-        - ~/.config/
-        - ~/.config/fcitx5/conf/
-        - ~/.local/share/icons/'
+    - ~/.config/
+    - ~/.config/fcitx5/conf/
+    - ~/.local/share/icons/
 
 - link:
-        # dotfiles to be linked (in alphabetical order)
-        ~/.config/darklyrc: .config/darklyrc
-        ~/.config/fcitx5/conf/classicui.conf: .config/fcitx5/conf/classicui.conf
-        ~/.config/fontconfig: .config/fontconfig
-        ~/.config/fuzzel: .config/fuzzel
-        ~/.config/hypr: .config/hypr
-        ~/.config/kdeglobals: .config/kdeglobals
-        ~/.config/kde-material-you-colors: .config/kde-material-you-colors
-        ~/.config/Kvantum: .config/Kvantum
-        ~/.config/matugen: .config/matugen
-        ~/.config/qt5ct: .config/qt5ct
-        ~/.config/qt6ct: .config/qt6ct
-        ~/.config/quickshell: .config/quickshell
-        ~/.config/wlogout: .config/wlogout
-        ~/.config/xdg-desktop-portal: .config/xdg-desktop-portal
-        ~/.config/zshrc.d: .config/zshrc.d
-        # extra dotfiles to be linked (in alphabetical order)
-        ~/.config/dolphinrc: .config/dolphinrc
-        ~/.config/fish: .config/fish
-        ~/.config/kitty: .config/kitty
-        ~/.config/mpv: .config/mpv
-        ~/.config/starship.toml: .config/starship.toml
-        # assets
-        ~/.local/share/icons/illogical-impulse.svg: .local/share/icons/illogical-impulse.svg
+    # dotfiles to be linked (in alphabetical order)
+    ~/.config/darklyrc: .config/darklyrc
+    ~/.config/fcitx5/conf/classicui.conf: .config/fcitx5/conf/classicui.conf
+    ~/.config/fontconfig: .config/fontconfig
+    ~/.config/fuzzel: .config/fuzzel
+    ~/.config/hypr: .config/hypr
+    ~/.config/kdeglobals: .config/kdeglobals
+    ~/.config/kde-material-you-colors: .config/kde-material-you-colors
+    ~/.config/Kvantum: .config/Kvantum
+    ~/.config/matugen: .config/matugen
+    ~/.config/qt5ct: .config/qt5ct
+    ~/.config/qt6ct: .config/qt6ct
+    ~/.config/quickshell: .config/quickshell
+    ~/.config/wlogout: .config/wlogout
+    ~/.config/xdg-desktop-portal: .config/xdg-desktop-portal
+    ~/.config/zshrc.d: .config/zshrc.d
+    # extra dotfiles to be linked (in alphabetical order)
+    ~/.config/dolphinrc: .config/dolphinrc
+    ~/.config/fish: .config/fish
+    ~/.config/kitty: .config/kitty
+    ~/.config/mpv: .config/mpv
+    ~/.config/starship.toml: .config/starship.toml
+    # assets
+    ~/.local/share/icons/illogical-impulse.svg: .local/share/icons/illogical-impulse.svg
 
 - shell:
-        - description: Installing submodules
-          command: git submodule update --init --recursive
+    - description: Installing submodules
+      command: git submodule update --init --recursive
 
-        - description: Installing illogical-impulse packages
-          command: >
-                set -e
+    - description: Installing illogical-impulse packages
+      command: |
+        set -e
 
-                metapkgs=({hyprsunset,bibata-modern-classic-bin,microtex-git,basics,software})
+        metapkgs=({hyprsunset,bibata-modern-classic-bin,microtex-git,basics,software})
 
-                for i in "${metapkgs[@]}"; do
+        for i in "${metapkgs[@]}"; do
+          pushd arch-packages/illogical-impulse-$i
 
-                      pushd arch-packages/illogical-impulse-$i
+          source ./PKGBUILD
+          yay -S --needed --asdeps "${depends[@]}"
+          makepkg -Asi
 
-                      source ./PKGBUILD
+          popd
+        done
 
-                      yay -S --needed --asdeps "${depends[@]}"
+    - description: Setting up D-Bus
+      command: rc-update -U add dbus
 
-                      makepkg -Asi
+    - description: Setting up Python virtual environment
+      command: |
+        set -e
 
-                      popd
+        XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+        ILLOGICAL_IMPULSE_VIRTUAL_ENV=$XDG_STATE_HOME/quickshell/.venv
 
-                done
+        mkdir -p $(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV)
 
-        - description: Setting up D-Bus
-          command: rc-update -U add dbus
+        UV_NO_MODIFY_PATH=1
 
-        - description: Setting up Python virtual environment
-          command: >
-                set -e
-
-                XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
-
-                ILLOGICAL_IMPULSE_VIRTUAL_ENV=$XDG_STATE_HOME/quickshell/.venv
-
-                mkdir -p $(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV)
-
-                UV_NO_MODIFY_PATH=1
-
-                uv venv -c --prompt .venv $(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV) -p 3.12 
-
-                source $(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV)/bin/activate
-
-                uv pip install -r scriptdata/requirements.txt
-
-                deactivate
+        uv venv -c --prompt .venv $(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV) -p 3.12 
+        source $(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV)/bin/activate
+        uv pip install -r scriptdata/requirements.txt
+        deactivate
