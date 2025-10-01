@@ -4,6 +4,10 @@
     link:
       relative: true
       relink: true
+    shell:
+      stdin: true
+      stdout: true
+      stderr: true
 
 - clean: ['~']
 
@@ -40,3 +44,21 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
+    - command: set -e
+
+        metapkgs=({hyprsunset,bibata-modern-classic-bin,microtex-git,basics,software})
+
+        for i in "${metapkgs[@]}"; do
+
+        pushd arch-packages/illogical-impulse-$i
+
+        source ./PKGBUILD
+
+        yay -S --needed --asdeps "${depends[@]}"
+
+        makepkg -Asi
+
+        popd
+
+        done
+      description: Installing illogical-impulse packages
