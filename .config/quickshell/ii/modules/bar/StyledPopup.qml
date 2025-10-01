@@ -35,18 +35,14 @@ LazyLoader {
         exclusiveZone: 0
         margins {
             left: {
-                if (!Config.options.bar.vertical) return root.QsWindow?.mapFromItem(
-                    root.hoverTarget, 
-                    (root.hoverTarget.width - popupBackground.implicitWidth) / 2, 0
-                ).x;
-                return Appearance.sizes.verticalBarWidth
+                if (!Config.options.bar.vertical)
+                    return root.QsWindow?.mapFromItem(root.hoverTarget, (root.hoverTarget.width - popupBackground.implicitWidth) / 2, 0).x;
+                return Appearance.sizes.verticalBarWidth;
             }
             top: {
-                if (!Config.options.bar.vertical) return Appearance.sizes.barHeight;
-                return root.QsWindow?.mapFromItem(
-                    root.hoverTarget, 
-                    (root.hoverTarget.height - popupBackground.implicitHeight) / 2, 0
-                ).y;
+                if (!Config.options.bar.vertical)
+                    return Appearance.sizes.barHeight;
+                return root.QsWindow?.mapFromItem(root.hoverTarget, (root.hoverTarget.height - popupBackground.implicitHeight) / 2, 0).y;
             }
             right: Appearance.sizes.verticalBarWidth
             bottom: Appearance.sizes.barHeight
@@ -70,7 +66,7 @@ LazyLoader {
             }
             implicitWidth: root.contentItem.implicitWidth + margin * 2
             implicitHeight: root.contentItem.implicitHeight + margin * 2
-            color: ColorUtils.applyAlpha(Appearance.colors.colSurfaceContainer, 1 - Appearance.backgroundTransparency)
+            color: Appearance.colors.colSurfaceContainer
             radius: Appearance.rounding.small
             children: [root.contentItem]
 

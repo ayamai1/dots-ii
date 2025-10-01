@@ -1,8 +1,8 @@
+pragma Singleton
+pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import qs.modules.common.functions
-pragma Singleton
-pragma ComponentBehavior: Bound
 
 Singleton {
     id: root
@@ -14,27 +14,6 @@ Singleton {
     property QtObject font
     property QtObject sizes
     property string syntaxHighlightingTheme
-
-    // Transparency. The quadratic functions were derived from analysis of hand-picked transparency values.
-    ColorQuantizer {
-        id: wallColorQuant
-        source: Qt.resolvedUrl(Config.options.background.wallpaperPath)
-        depth: 0 // 2^0 = 1 color
-        rescaleSize: 10
-    }
-    property real wallpaperVibrancy: (wallColorQuant.colors[0]?.hslSaturation + wallColorQuant.colors[0]?.hslLightness) / 2
-    property real autoBackgroundTransparency: { // y = 0.5768x^2 - 0.759x + 0.2896
-        let x = wallpaperVibrancy
-        let y = 0.5768 * (x * x) - 0.759 * (x) + 0.2896
-        return Math.max(0, Math.min(0.22, y))
-    }
-    property real autoContentTransparency: { // y = -10.1734x^2 + 3.4457x + 0.1872
-        let x = autoBackgroundTransparency
-        let y = -10.1734 * (x * x) + 3.4457 * (x) + 0.1872
-        return Math.max(0, Math.min(0.6, y))
-    }
-    property real backgroundTransparency: Config?.options.appearance.transparency.enable ? Config?.options.appearance.transparency.automatic ? autoBackgroundTransparency : Config?.options.appearance.transparency.backgroundTransparency : 0
-    property real contentTransparency: Config?.options.appearance.transparency.enable ? Config?.options.appearance.transparency.automatic ? autoContentTransparency : Config?.options.appearance.transparency.contentTransparency : 0
 
     m3colors: QtObject {
         property bool darkmode: false
@@ -117,30 +96,30 @@ Singleton {
 
     colors: QtObject {
         property color colSubtext: m3colors.m3outline
-        property color colLayer0: ColorUtils.mix(ColorUtils.transparentize(m3colors.m3background, root.backgroundTransparency), m3colors.m3primary, Config.options.appearance.extraBackgroundTint ? 0.99 : 1)
+        property color colLayer0: ColorUtils.mix(m3colors.m3background, m3colors.m3primary, Config.options.appearance.extraBackgroundTint ? 0.99 : 1)
         property color colOnLayer0: m3colors.m3onBackground
-        property color colLayer0Hover: ColorUtils.transparentize(ColorUtils.mix(colLayer0, colOnLayer0, 0.9, root.contentTransparency))
-        property color colLayer0Active: ColorUtils.transparentize(ColorUtils.mix(colLayer0, colOnLayer0, 0.8, root.contentTransparency))
+        property color colLayer0Hover: ColorUtils.mix(colLayer0, colOnLayer0, 0.9)
+        property color colLayer0Active: ColorUtils.mix(colLayer0, colOnLayer0, 0.8)
         property color colLayer0Border: ColorUtils.mix(root.m3colors.m3outlineVariant, colLayer0, 0.4)
-        property color colLayer1: ColorUtils.transparentize(m3colors.m3surfaceContainerLow, root.contentTransparency);
-        property color colOnLayer1: m3colors.m3onSurfaceVariant;
-        property color colOnLayer1Inactive: ColorUtils.mix(colOnLayer1, colLayer1, 0.45);
-        property color colLayer2: ColorUtils.transparentize(m3colors.m3surfaceContainer, root.contentTransparency)
-        property color colOnLayer2: m3colors.m3onSurface;
-        property color colOnLayer2Disabled: ColorUtils.mix(colOnLayer2, m3colors.m3background, 0.4);
-        property color colLayer1Hover: ColorUtils.transparentize(ColorUtils.mix(colLayer1, colOnLayer1, 0.92), root.contentTransparency)
-        property color colLayer1Active: ColorUtils.transparentize(ColorUtils.mix(colLayer1, colOnLayer1, 0.85), root.contentTransparency);
-        property color colLayer2Hover: ColorUtils.transparentize(ColorUtils.mix(colLayer2, colOnLayer2, 0.90), root.contentTransparency)
-        property color colLayer2Active: ColorUtils.transparentize(ColorUtils.mix(colLayer2, colOnLayer2, 0.80), root.contentTransparency);
-        property color colLayer2Disabled: ColorUtils.transparentize(ColorUtils.mix(colLayer2, m3colors.m3background, 0.8), root.contentTransparency);
-        property color colLayer3: ColorUtils.transparentize(m3colors.m3surfaceContainerHigh, root.contentTransparency)
-        property color colOnLayer3: m3colors.m3onSurface;
-        property color colLayer3Hover: ColorUtils.transparentize(ColorUtils.mix(colLayer3, colOnLayer3, 0.90), root.contentTransparency)
-        property color colLayer3Active: ColorUtils.transparentize(ColorUtils.mix(colLayer3, colOnLayer3, 0.80), root.contentTransparency);
-        property color colLayer4: ColorUtils.transparentize(m3colors.m3surfaceContainerHighest, root.contentTransparency)
-        property color colOnLayer4: m3colors.m3onSurface;
-        property color colLayer4Hover: ColorUtils.transparentize(ColorUtils.mix(colLayer4, colOnLayer4, 0.90), root.contentTransparency)
-        property color colLayer4Active: ColorUtils.transparentize(ColorUtils.mix(colLayer4, colOnLayer4, 0.80), root.contentTransparency);
+        property color colLayer1: m3colors.m3surfaceContainerLow
+        property color colOnLayer1: m3colors.m3onSurfaceVariant
+        property color colOnLayer1Inactive: ColorUtils.mix(colOnLayer1, colLayer1, 0.45)
+        property color colLayer2: m3colors.m3surfaceContainer
+        property color colOnLayer2: m3colors.m3onSurface
+        property color colOnLayer2Disabled: ColorUtils.mix(colOnLayer2, m3colors.m3background, 0.4)
+        property color colLayer1Hover: ColorUtils.mix(colLayer1, colOnLayer1, 0.92)
+        property color colLayer1Active: ColorUtils.mix(colLayer1, colOnLayer1, 0.85)
+        property color colLayer2Hover: ColorUtils.mix(colLayer2, colOnLayer2, 0.90)
+        property color colLayer2Active: ColorUtils.mix(colLayer2, colOnLayer2, 0.80)
+        property color colLayer2Disabled: ColorUtils.mix(colLayer2, m3colors.m3background, 0.8)
+        property color colLayer3: m3colors.m3surfaceContainerHigh
+        property color colOnLayer3: m3colors.m3onSurface
+        property color colLayer3Hover: ColorUtils.mix(colLayer3, colOnLayer3, 0.90)
+        property color colLayer3Active: ColorUtils.mix(colLayer3, colOnLayer3, 0.80)
+        property color colLayer4: m3colors.m3surfaceContainerHighest
+        property color colOnLayer4: m3colors.m3onSurface
+        property color colLayer4Hover: ColorUtils.mix(colLayer4, colOnLayer4, 0.90)
+        property color colLayer4Active: ColorUtils.mix(colLayer4, colOnLayer4, 0.80)
         property color colPrimary: m3colors.m3primary
         property color colOnPrimary: m3colors.m3onPrimary
         property color colPrimaryHover: ColorUtils.mix(colors.colPrimary, colLayer1Hover, 0.87)
@@ -162,10 +141,10 @@ Singleton {
         property color colTertiaryContainerHover: ColorUtils.mix(m3colors.m3tertiaryContainer, m3colors.m3onTertiaryContainer, 0.90)
         property color colTertiaryContainerActive: ColorUtils.mix(m3colors.m3tertiaryContainer, colLayer1Active, 0.54)
         property color colOnSecondaryContainer: m3colors.m3onSecondaryContainer
-        property color colSurfaceContainerLow: ColorUtils.transparentize(m3colors.m3surfaceContainerLow, root.contentTransparency)
-        property color colSurfaceContainer: ColorUtils.transparentize(m3colors.m3surfaceContainer, root.contentTransparency)
-        property color colSurfaceContainerHigh: ColorUtils.transparentize(m3colors.m3surfaceContainerHigh, root.contentTransparency)
-        property color colSurfaceContainerHighest: ColorUtils.transparentize(m3colors.m3surfaceContainerHighest, root.contentTransparency)
+        property color colSurfaceContainerLow: m3colors.m3surfaceContainerLow
+        property color colSurfaceContainer: m3colors.m3surfaceContainer
+        property color colSurfaceContainerHigh: m3colors.m3surfaceContainerHigh
+        property color colSurfaceContainerHighest: m3colors.m3surfaceContainerHighest
         property color colSurfaceContainerHighestHover: ColorUtils.mix(m3colors.m3surfaceContainerHighest, m3colors.m3onSurface, 0.95)
         property color colSurfaceContainerHighestActive: ColorUtils.mix(m3colors.m3surfaceContainerHighest, m3colors.m3onSurface, 0.85)
         property color colOnSurface: m3colors.m3onSurface
@@ -290,16 +269,20 @@ Singleton {
             property int type: Easing.BezierSpline
             property list<real> bezierCurve: animationCurves.expressiveEffects
             property int velocity: 850
-            property Component colorAnimation: Component { ColorAnimation {
-                duration: root.animation.elementMoveFast.duration
-                easing.type: root.animation.elementMoveFast.type
-                easing.bezierCurve: root.animation.elementMoveFast.bezierCurve
-            }}
-            property Component numberAnimation: Component { NumberAnimation {
+            property Component colorAnimation: Component {
+                ColorAnimation {
                     duration: root.animation.elementMoveFast.duration
                     easing.type: root.animation.elementMoveFast.type
                     easing.bezierCurve: root.animation.elementMoveFast.bezierCurve
-            }}
+                }
+            }
+            property Component numberAnimation: Component {
+                NumberAnimation {
+                    duration: root.animation.elementMoveFast.duration
+                    easing.type: root.animation.elementMoveFast.type
+                    easing.bezierCurve: root.animation.elementMoveFast.bezierCurve
+                }
+            }
         }
 
         property QtObject elementResize: QtObject {
@@ -321,13 +304,15 @@ Singleton {
             property int type: Easing.BezierSpline
             property list<real> bezierCurve: animationCurves.expressiveFastSpatial
             property int velocity: 850
-            property Component numberAnimation: Component { NumberAnimation {
+            property Component numberAnimation: Component {
+                NumberAnimation {
                     duration: root.animation.clickBounce.duration
                     easing.type: root.animation.clickBounce.type
                     easing.bezierCurve: root.animation.clickBounce.bezierCurve
-            }}
+                }
+            }
         }
-        
+
         property QtObject scroll: QtObject {
             property int duration: 200
             property int type: Easing.BezierSpline
@@ -342,8 +327,7 @@ Singleton {
 
     sizes: QtObject {
         property real baseBarHeight: 40
-        property real barHeight: Config.options.bar.cornerStyle === 1 ? 
-            (baseBarHeight + root.sizes.hyprlandGapsOut * 2) : baseBarHeight
+        property real barHeight: Config.options.bar.cornerStyle === 1 ? (baseBarHeight + root.sizes.hyprlandGapsOut * 2) : baseBarHeight
         property real barCenterSideModuleWidth: Config.options?.bar.verbose ? 360 : 140
         property real barCenterSideModuleWidthShortened: 280
         property real barCenterSideModuleWidthHellaShortened: 190
@@ -362,8 +346,7 @@ Singleton {
         property real sidebarWidth: 460
         property real sidebarWidthExtended: 750
         property real baseVerticalBarWidth: 46
-        property real verticalBarWidth: Config.options.bar.cornerStyle === 1 ? 
-            (baseVerticalBarWidth + root.sizes.hyprlandGapsOut * 2) : baseVerticalBarWidth
+        property real verticalBarWidth: Config.options.bar.cornerStyle === 1 ? (baseVerticalBarWidth + root.sizes.hyprlandGapsOut * 2) : baseVerticalBarWidth
         property real wallpaperSelectorWidth: 1200
         property real wallpaperSelectorHeight: 690
         property real wallpaperSelectorItemMargins: 8

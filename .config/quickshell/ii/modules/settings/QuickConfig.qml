@@ -69,7 +69,7 @@ ContentPage {
             Item {
                 implicitWidth: 340
                 implicitHeight: 200
-                
+
                 StyledImage {
                     id: wallpaperPreview
                     anchors.fill: parent
@@ -219,17 +219,6 @@ ContentPage {
                 }
             ]
         }
-
-        ConfigSwitch {
-            text: Translation.tr("Transparency")
-            checked: Config.options.appearance.transparency.enable
-            onCheckedChanged: {
-                Config.options.appearance.transparency.enable = checked;
-            }
-            StyledToolTip {
-                text: Translation.tr("Might look ass. Unsupported.")
-            }
-        }
     }
 
     ContentSection {
@@ -326,7 +315,6 @@ ContentPage {
                     ]
                 }
             }
-            
         }
     }
 
