@@ -50,7 +50,7 @@ depends=(
 	hyprland-qtutils
 	hyprland-qt-support
 	hyprlang
-	illogical-impulse-hyprsunset
+	hyprsunset
 	hyprutils
 	hyprwayland-scanner
 	wl-clipboard

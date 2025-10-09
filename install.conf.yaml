@@ -53,7 +53,7 @@
       command: |
         set -e
 
-        metapkgs=({hyprsunset,bibata-modern-classic-bin,microtex-git,basics,software})
+        metapkgs=({bibata-modern-classic-bin,microtex-git,basics,software})
 
         for i in "${metapkgs[@]}"; do
           pushd arch-packages/illogical-impulse-$i
