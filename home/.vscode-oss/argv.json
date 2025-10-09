@@ -1,0 +1,12 @@
+// This configuration file allows you to pass permanent command line arguments to VSCodium.
+// Only a subset of arguments is currently supported to reduce the likelihood of breaking
+// the installation.
+//
+// PLEASE DO NOT CHANGE WITHOUT UNDERSTANDING THE IMPACT
+//
+// NOTE: Changing this file requires a restart of VSCodium.
+{
+	"enable-crash-reporter": false,
+	"crash-reporter-id": "00000000-0000-0000-0000-000000000000",
+	"password-store": "gnome-libsecret"
+}

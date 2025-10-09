@@ -13,4 +13,7 @@ depends=(
 
 	# KDE
 	dolphin
+
+	# Code editing
+	vscodium-bin
 )

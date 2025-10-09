@@ -20,7 +20,7 @@
     - ~/.local/share/icons/
 
 - link:
-    # dotfiles to be linked (in alphabetical order)
+    # basic dotfiles to be linked (in alphabetical order)
     ~/.config/darklyrc: .config/darklyrc
     ~/.config/fcitx5/conf/classicui.conf: .config/fcitx5/conf/classicui.conf
     ~/.config/fontconfig: .config/fontconfig
@@ -36,12 +36,13 @@
     ~/.config/wlogout: .config/wlogout
     ~/.config/xdg-desktop-portal: .config/xdg-desktop-portal
     ~/.config/zshrc.d: .config/zshrc.d
-    # extra dotfiles to be linked (in alphabetical order)
+    # software dotfiles to be linked (in alphabetical order)
     ~/.config/dolphinrc: .config/dolphinrc
     ~/.config/fish: .config/fish
     ~/.config/kitty: .config/kitty
     ~/.config/mpv: .config/mpv
     ~/.config/starship.toml: .config/starship.toml
+    ~/.vscode-oss/argv.json: home/.vscode-oss/argv.json
     # assets
     ~/.local/share/icons/illogical-impulse.svg: .local/share/icons/illogical-impulse.svg
 
