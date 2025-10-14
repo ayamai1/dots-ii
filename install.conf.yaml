@@ -66,8 +66,17 @@
           popd
         done
 
-    - description: Setting up D-Bus
-      command: rc-update -U add dbus
+    - description: Adding system-level OpenRC services
+      command: |
+        sudo rc-update add bluetoothd
+        sudo rc-update add ly
+
+    - description: Adding user-level OpenRC services
+      command: |
+        rc-update -U add dbus
+        rc-update -U add pipewire
+        rc-update -U add pipewire-pulse
+        rc-update -U add wireplumber
 
     - description: Setting up Python virtual environment
       command: |
