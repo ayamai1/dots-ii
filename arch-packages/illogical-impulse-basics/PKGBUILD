@@ -62,6 +62,8 @@ depends=(
 	# KDE
 	kwallet
 	polkit-kde-agent
+	networkmanager-openrc
+	plasma-nm
 
 	# XDG Desktop Portals
 	dbus-openrc
