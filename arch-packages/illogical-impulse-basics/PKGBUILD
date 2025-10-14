@@ -12,6 +12,8 @@ depends=(
 	pipewire-pulse-openrc
 	libdbusmenu-gtk3
 	playerctl
+	bluez-openrc
+	bluedevil
 
 	# Backlight
 	brightnessctl
