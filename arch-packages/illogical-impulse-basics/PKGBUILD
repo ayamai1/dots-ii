@@ -9,6 +9,7 @@ depends=(
 	cava
 	pavucontrol-qt
 	wireplumber-openrc
+	pipewire-pulse-openrc
 	libdbusmenu-gtk3
 	playerctl
 
