@@ -27,8 +27,8 @@ if you want to know more about the dotfiles, be sure to first check out the [REA
   - is easier to configure and maintain;
 
   - is easier to develop with:
-    
-      - the dotfiles are installed as *symbolic links*, so changes made **in the repo** will immediatly appear **in your computer**
+
+    - the dotfiles are installed as *symbolic links*, so changes made **in the repo** will immediatly appear **in your computer**
 
   - has *idempotent* installation:
   
@@ -38,13 +38,13 @@ if you want to know more about the dotfiles, be sure to first check out the [REA
 
 - in addition to basic stuff — compositor, widgets, theming and compatibility software *(portals, input methods, hardware management etc.)* — there is also configuration for software that i frequently use:
 
-    - custom shell (fish)
-    
-    - terminal emulator (kitty)
+  - custom shell (fish)
 
-    - media player (mpv)
-    
-    - file manager (Dolphin)
+  - terminal emulator (kitty)
+
+  - media player (mpv)
+
+  - file manager (Dolphin)
 
   so, you can compate these dotfiles to a **full-fledged desktop environment**
 
