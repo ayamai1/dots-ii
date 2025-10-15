@@ -38,7 +38,7 @@ if you want to know more about the dotfiles, be sure to first check out the [REA
 
 - in addition to basic stuff — compositor, widgets, theming and compatibility software *(portals, input methods, hardware management etc.)* — there is also configuration for software that i frequently use:
 
-    - custom shells (fish and zsh)
+    - custom shell (fish)
     
     - terminal emulator (kitty)
 

@@ -35,7 +35,6 @@
     ~/.config/quickshell: .config/quickshell
     ~/.config/wlogout: .config/wlogout
     ~/.config/xdg-desktop-portal: .config/xdg-desktop-portal
-    ~/.config/zshrc.d: .config/zshrc.d
     # software dotfiles to be linked (in alphabetical order)
     ~/.config/dolphinrc: .config/dolphinrc
     ~/.config/fish: .config/fish
