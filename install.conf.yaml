@@ -24,7 +24,6 @@
     ~/.config/darklyrc: .config/darklyrc
     ~/.config/fcitx5/conf/classicui.conf: .config/fcitx5/conf/classicui.conf
     ~/.config/fontconfig: .config/fontconfig
-    ~/.config/fuzzel: .config/fuzzel
     ~/.config/hypr: .config/hypr
     ~/.config/kdeglobals: .config/kdeglobals
     ~/.config/kde-material-you-colors: .config/kde-material-you-colors
